@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
 
     if (_search == null)
       response = await http
-          .get('http://www.omdbapi.com/?s=terminator&apikey=694b31e1');
+          .get('http://www.omdbapi.com/?s=furious&apikey=694b31e1');
     else
       response = await http.get(
           'http://www.omdbapi.com/?s=$_search&page=$_page&apikey=694b31e1');
@@ -41,7 +41,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _getMoviest();
     _getMovies().then((map) {
       //print(map);
     });
