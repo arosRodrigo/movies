@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'package:movies/movie_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,6 +11,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  
   String _search;
   int _page;
 
@@ -25,10 +29,19 @@ class _HomePageState extends State<HomePage> {
     return convert.jsonDecode(response.body);
   }
 
+  void _getMoviest() async {
+  //await Firestore.instance.collection("users").document().setData({'name':'anderson'}); //incluir dado
+  await Firestore.instance.collection("users").snapshots().forEach((element) {//consulta dado
+    element.documents.forEach((doc) { 
+      print(doc.documentID);
+    });
+  });
+}
+
   @override
   void initState() {
     super.initState();
-
+    _getMoviest();
     _getMovies().then((map) {
       //print(map);
     });
